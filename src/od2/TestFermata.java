@@ -23,15 +23,23 @@ public class TestFermata {
         //int value = rand.nextInt(50);
         int min = 0;
         //int output = rand.nextInt((max - min )+1)+min;
-        int output = rand.nextInt((max)/2-1) *2+1;
-        return output;   
+        int wynik = rand.nextInt((max)/2-1) *2+1;
+        return wynik;   
     }
     
-    public void drukujPauze(){
+    public static int losujIsprawdz (int max, int k ){
+            boolean sprawdz = false;
+            int wynik = 1;
+            while (sprawdz != true) {
+                wynik = losowanie(max);
+                sprawdz = samTest(wynik, k);
+            }
+        return wynik;   
+    }
+    
+    public static void drukujPauze(){
         System.out.println("===================================");
     }
-    
-    
     
     public void drukujWartosciDefaultowe(){
         //this.liczbaWylosowana=liczbaWylosowana;
@@ -83,13 +91,20 @@ public class TestFermata {
                 System.out.println("Opcja numbero quatro. Do widzenia !");
                 drukujPauze();
                 break;
+            case 5:
+                int test = losujIsprawdz(gornaGranica,iloscProb);
+                drukujPauze();
+                System.out.println("Ukryta opcja 5: Test funkcj:.");
+                drukujPauze();
+                System.out.println("Test funkcji losujIsprawdz: " + test );
+                interfejs();
             default:
                 System.out.println("Spróbuj jeszcze raz.");
             interfejs();
         }
     }
     
-        private static boolean samTest(int n, int k){
+    private static boolean samTest(int n, int k){
                 int a, i;
                 //n - liczba do sprawdzenia 
                 //k - dokladność 
@@ -99,7 +114,7 @@ public class TestFermata {
                 }
                 for (i=0; i<k; i++){
                     a = rand.nextInt(n-2) + 2;
-                    if(power_modulo_fast(a, n-1, n) != 1)
+                    if(algorytmSzybkiegoPotegowania(a, n-1, n) != 1)
                     {
                         return false;
                     }
@@ -107,10 +122,10 @@ public class TestFermata {
                 return true;
            }
         
-    private static int power_modulo_fast(int a, int b, int m)
+    private static int algorytmSzybkiegoPotegowania(int a, int b, int m)
     {
        int i;
-       int result = 1;
+       int wynik = 1;
        long x = a%m;
 
        for (i=1; i<=b; i<<=1)
@@ -118,13 +133,13 @@ public class TestFermata {
           x %= m;
           if ((b&i) != 0)
           {
-             result *= x;
-             result %= m;
+             wynik *= x;
+             wynik %= m;
           }
           x *= x;
        }
 
-       return result%m;
+       return wynik%m;
     }
     
     public static void main(String args[]){
