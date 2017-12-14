@@ -4,6 +4,12 @@
  * and open the template in the editor.
  */
 package od2;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
 import static od2.TestFermata.*;
@@ -27,6 +33,8 @@ public class WyborKluczy {
     private final Scanner sc = new Scanner(System.in);
     int gornaGranica;   
     int iloscProb;
+    private static String sciezkaDoPlikuPUBLICKEY = "Documents/public.key";
+    private static String sciezkaDoPlikuPRIVATEKEY = "Documents/private.key";
     
     public static int Euklides(int p, int q) {
         while (q != 0) {
@@ -55,6 +63,8 @@ public class WyborKluczy {
             duzeP = losujIsprawdz(gornaGranica, iloscProb);
             duzeQ = losujIsprawdz(gornaGranica, iloscProb);
             fiOdN = ((duzeP-1)*(duzeQ-1));
+            duzeE = 0;
+            duzeD = 0;
             // System.out.println("Wylosowane P: "+duzeP);
         }
     public void drukujWartosci(){
@@ -79,6 +89,64 @@ public class WyborKluczy {
         drukujPauze();
     }
     
+        public static void zapiszKlucze() {
+            BufferedWriter bw = null;
+            FileWriter fw = null;
+            String s = "String builder content";
+            StringBuilder sB = new StringBuilder(s);
+            try {
+		String content = "This is the content to write into file\n";
+		fw = new FileWriter(sciezkaDoPlikuPUBLICKEY);
+		//bw = new BufferedWriter(fw);
+		bw.write(content);
+                
+                //bw.write(sB.toString());
+                
+		System.out.println("Zapisano kluczce do pliku.");
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (bw != null)
+					bw.close();
+				if (fw != null)
+					fw.close();
+			} catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
+           
+        private void zapiszKlucze2(){
+            
+            	try {   
+                    
+                        File homedir = new File(System.getProperty("user.home"));
+                        File plikPub = new File(homedir, sciezkaDoPlikuPUBLICKEY);
+                        File plikPriv = new File(homedir, sciezkaDoPlikuPRIVATEKEY);
+                        
+                        plikPub.createNewFile(); 
+                        plikPriv.createNewFile();
+                        
+                        String pubKey = duzeE +" "+duzeN;
+			FileOutputStream wyjsciePub = new FileOutputStream(plikPub);
+			wyjsciePub.write(pubKey.getBytes());
+			wyjsciePub.close();
+                        
+                        String privKey = duzeD +" "+duzeN;
+			FileOutputStream wyjsciePriv = new FileOutputStream(plikPriv);
+			wyjsciePriv.write(privKey.getBytes());
+			wyjsciePriv.close();
+                        
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        }
+        
+        
     public void losujE(){
         this.duzeE = duzeE;
         Random rand = new Random();
@@ -112,7 +180,7 @@ public class WyborKluczy {
         this.duzeN = duzeN;
         duzeN = duzeP * duzeQ;
     }
-    
+        
     public void interfejs(){
         
         String wejscieStr;
@@ -152,7 +220,7 @@ public class WyborKluczy {
                 drukujPauze();
                 System.out.println("Opcja 3: Zapis do pliku. ");
                 drukujPauze();
-                
+                zapiszKlucze2();
                 break;
             case 4:
                 drukujPauze();
