@@ -70,9 +70,10 @@ public class WyborKluczy {
     public void drukujWartosci(){
 
         drukujPauze();
-        System.out.println("Wylosowane P: "+duzeP);
-        System.out.println("Wylosowane Q: "+duzeQ);
-        System.out.println("Wylosowane E: "+duzeE);
+        System.out.println("Wylosowane p: "+duzeP);
+        System.out.println("Wylosowane q: "+duzeQ);
+        System.out.println("Wylosowane e: "+duzeE);
+        System.out.println("n = p * q: "+ (duzeP*duzeQ));
         if(duzeD!=0){
             System.out.println("Obliczone D: "+duzeD);
         }
@@ -139,6 +140,8 @@ public class WyborKluczy {
 			wyjsciePriv.write(privKey.getBytes());
 			wyjsciePriv.close();
                         
+                        System.out.println("Zapisano klucze do plików.");
+                        
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -181,13 +184,9 @@ public class WyborKluczy {
         duzeN = duzeP * duzeQ;
     }
         
-    public void interfejs(){
-        
-        String wejscieStr;
-        int wejscieInt;
+    public void interfejs(){ 
         
         drukujPauze();
-        //losujWartosci();
         drukujWartosci();
         drukujPauze();
         System.out.println("Wybierz opcje: \n\n 1. Generuj nowy zestaw p,q i e. \n 2. Generowanie kluczy \n 3. Zapisz do pliku \n 4. Zmień wrażliwość testu Fermata oraz górną granice obliczeń \n 5. Koniec"); 
