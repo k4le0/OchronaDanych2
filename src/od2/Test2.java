@@ -91,7 +91,7 @@ public class Test2 {
   
   /** Trivial test program. */
   public static void main(String[] args) {
-    Test2 rsa = new Test2(1024);
+    //Test2 rsa = new Test2(1024);
     //int parzysta = 0;
     String text1 = "KOKOK cholera go wie jak to ma byc dlugie ";
     //              1234567890123456789012345678901234567890123
@@ -181,7 +181,7 @@ public class Test2 {
     System.out.println("BigInteger kryptogram: "+ Arrays.toString(kryptogram));
     
     //*********************************************************************************ROZSZYFROWANIE
-    BigInteger[] rozszyfrowany = new BigInteger[kryptogram.length];
+    //BigInteger[] rozszyfrowany = new BigInteger[kryptogram.length];
     int[] rozszyfrowanyInt = new int[kryptogram.length];
     
     for(int i = 0; i < kryptogram.length; i++){

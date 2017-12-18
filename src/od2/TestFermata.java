@@ -37,6 +37,12 @@ public class TestFermata {
         return wynik;   
     }
     
+        public static void drukujSpacje(){
+            
+        for(int i=0;i<10;i++)
+        System.out.println("");
+    }
+        
     public static void drukujPauze(){
         System.out.println("===================================");
     }
